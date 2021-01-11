@@ -9,7 +9,12 @@ from home.models import Student
 
 class StudentAdmin(ModelAdmin):
 
-    list_display = ("name", "email", "birthday")
+    list_display = ("name", "email", "birthday", "students_social")
+
+    def students_social(self, object):
+        social = object.url
+        return social
+
 
 
 admin.site.register(Student, StudentAdmin)
