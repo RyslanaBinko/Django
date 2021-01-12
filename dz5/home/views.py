@@ -9,7 +9,9 @@ from home.forms import StudentForm
 
 
 class HomeView(View):
+
     def get(self, request):
+
         students = Student.objects.all()
         student_form = StudentForm()
 
@@ -33,6 +35,7 @@ class UpdateView(View):
         return Student.objects.get(id=id)
 
     def get(self, request, id):
+
         student = self.get_student(id)
         student_form = StudentForm(instance=student)
 
