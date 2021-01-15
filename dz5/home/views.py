@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 # Create your views here.
 from django.urls import reverse
@@ -9,6 +9,11 @@ from home.forms import StudentForm
 
 
 class HomeView(View):
+
+    """
+    class to display the list of students,
+    with the ability to go to the student update page;
+    """
 
     def get(self, request):
 
@@ -30,9 +35,17 @@ class HomeView(View):
 
 class UpdateView(View):
 
+    """
+    class for updating a student according to his id;
+    get request to display student change form;
+    post request to go to the list of students;
+
+    returns a list of students with saved changes;
+    """
+
     def get_student(self, id):
 
-        return Student.objects.get(id=id)
+        return get_object_or_404(Student, id=id)
 
     def get(self, request, id):
 

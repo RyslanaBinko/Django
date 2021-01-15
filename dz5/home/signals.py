@@ -8,7 +8,6 @@ from home.models import Student
 
 @receiver(pre_save, sender=Student)
 def normalized_name(sender, instance, **kwargs):
-    instance.normalized_name = instance.name.lower()
     instance.normalized_name = re.sub('[^\w\s]|_', '', instance.name).lower()
 
 

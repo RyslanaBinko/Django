@@ -5,20 +5,20 @@ from django.utils.deprecation import MiddlewareMixin
 from uuid import uuid4
 
 class LogMiddleware(MiddlewareMixin):
+    logging.basicConfig(level=logging.INFO)
 
     def process_view(self, request, view_func, view_args, view_kwargs):
-        logging.basicConfig(level=logging.INFO)
-        logging.info("process {}".format(view_func))
+        logging.info("Process request %s for the %s view", request.method, view_func)
 
         return view_func(request, *view_args, **view_kwargs)
 
     def process_request(self, request):
 
-        print(request)
+        logging.info(request)
 
     def process_response(self, request, response):
 
-        print(response)
+        logging.info(response)
 
         return response
 
@@ -34,7 +34,7 @@ class IdentifyResponseMiddleware(MiddlewareMixin):
 
     def process_response(self, request, response):
         logging.basicConfig(level=logging.INFO)
-        logging.info(request.META["hash_value"])
+        logging.info("hash value: %s", request.META["hash_value"])
         return response
 
 
