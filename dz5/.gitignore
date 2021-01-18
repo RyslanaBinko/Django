@@ -1,8 +1,0 @@
-.env
-.venv
-*.log
-__pycache__/
-.sqlite3
-.idea
-.cfg
-venv/*
