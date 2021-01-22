@@ -1,14 +1,15 @@
 import logging
 
-import faker
 from django.utils.deprecation import MiddlewareMixin
 from uuid import uuid4
+
 
 class LogMiddleware(MiddlewareMixin):
     logging.basicConfig(level=logging.INFO)
 
     def process_view(self, request, view_func, view_args, view_kwargs):
-        logging.info("Process request %s for the %s view", request.method, view_func)
+        logging.info("Process request %s for the %s view",
+                     request.method, view_func)
 
         return view_func(request, *view_args, **view_kwargs)
 
@@ -36,6 +37,3 @@ class IdentifyResponseMiddleware(MiddlewareMixin):
         logging.basicConfig(level=logging.INFO)
         logging.info("hash value: %s", request.META["hash_value"])
         return response
-
-
-
