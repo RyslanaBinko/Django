@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block body %}
+
 <form method="POST" action="{% url 'update_students' id=id %}">
     {% csrf_token %}
 
     {{ form }}
-    <input type="submit">
+    <<button type="submit" class="btn btn-primary">:)</button>
     </form>
-</body>
-</html>
+
+{% endblock %}
