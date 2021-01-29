@@ -1,7 +1,7 @@
 import logging
+from uuid import uuid4
 
 from django.utils.deprecation import MiddlewareMixin
-from uuid import uuid4
 
 
 class LogMiddleware(MiddlewareMixin):

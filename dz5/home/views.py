@@ -1,10 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
-
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
-
-from home.models import Student
 from home.forms import StudentForm
+from home.models import Student
 
 
 class HomeView(View):
@@ -42,11 +40,11 @@ class UpdateView(View):
     returns a list of students with saved changes;
     """
 
-    def get_student(self, id):
+    def get_student(self, id):  # noqa
 
         return get_object_or_404(Student, id=id)
 
-    def get(self, request, id):
+    def get(self, request, id):  # noqa
 
         student = self.get_student(id)
         student_form = StudentForm(instance=student)
@@ -59,8 +57,8 @@ class UpdateView(View):
             request, "update_student.html", context=context,
         )
 
-    def post(self, request, id):
-        student = self.get_student(id)
+    def post(self, request, id):  # noqa
+        student = self.get_student(id)  # noqa
         student_form = StudentForm(request.POST, instance=student)
         if student_form.is_valid():
             student_form.save()

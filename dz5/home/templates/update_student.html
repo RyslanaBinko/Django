@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 
+
+{% block title %} Student Update {% endblock %}
+
 {% block body %}
 
 <form method="POST" action="{% url 'update_students' id=id %}">
