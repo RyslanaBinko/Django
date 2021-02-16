@@ -1,13 +1,13 @@
-from django.core.management import BaseCommand
-from faker import Faker
 import random
 
+from django.core.management import BaseCommand
+from faker import Faker
 from home.models import Student
 
 
 class Command(BaseCommand):
 
-    help = "Insert student"
+    help = "Insert student"  # noqa
 
     def add_arguments(self, parser):
         parser.add_argument('-l', '--len', type=int, default=10)
