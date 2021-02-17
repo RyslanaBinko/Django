@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Student(models.Model):
-    id = models.IntegerField(primary_key=True)  # noqa
+    id = models.AutoField(primary_key=True)  # noqa
     name = models.CharField(max_length=200)
     normalized_name = models.CharField(max_length=200, null=True)
     age = models.SmallIntegerField(null=True)
@@ -12,3 +12,24 @@ class Student(models.Model):
     birthday = models.DateField(null=True)
     email = models.CharField(max_length=200, null=True)
     url = models.CharField(max_length=200, null=True)
+
+    subject = models.ForeignKey("home.Subject",
+                                on_delete=models.SET_NULL, null=True)
+    book = models.OneToOneField("home.Book",
+                                on_delete=models.CASCADE, null=True)
+    teacher = models.ManyToManyField("home.Teacher")
+
+
+class Teacher(models.Model):
+    id = models.AutoField(primary_key=True)  # noqa
+    name = models.CharField(max_length=200, null=True)
+
+
+class Subject(models.Model):
+    id = models.AutoField(primary_key=True)  # noqa
+    title = models.CharField(max_length=200)
+
+
+class Book(models.Model):
+    id = models.AutoField(primary_key=True)  # noqa
+    title = models.CharField(max_length=200, null=True)
