@@ -7,4 +7,4 @@ install:
   - poetry install
 
 script:
-  - flake8 dz5 --exclude venv
+  - flake8 dz5 --exclude migrations
