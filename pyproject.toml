@@ -8,6 +8,7 @@ authors = ["Ruslana Binko <binko.ryslana@gmail.com>"]
 python = "^3.7"
 Django = "3.1.5"
 celery = "5.0.5"
+requests = "^2.25.1"
 
 [tool.poetry.dev-dependencies]
 Faker = "5.8.0"

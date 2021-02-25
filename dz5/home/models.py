@@ -33,3 +33,11 @@ class Subject(models.Model):
 class Book(models.Model):
     id = models.AutoField(primary_key=True)  # noqa
     title = models.CharField(max_length=200, null=True)
+
+
+class Currency(models.Model):
+    id = models.AutoField(primary_key=True)  # noqa
+    ccy = models.CharField(max_length=5, null=True)
+    base_ccy = models.CharField(max_length=5, null=True)
+    buy = models.FloatField(max_length=200, null=True)
+    sale = models.FloatField(max_length=200, null=True)
