@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from home.views import HomeView, UpdateView
+from home.views import CSVView, HomeView, JsonView, UpdateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('students/class', HomeView.as_view(), name="students_class"),
-    path('student/update/<id>', UpdateView.as_view(), name="update_students")
+    path('student/update/<id>', UpdateView.as_view(), name="update_students"),
+    path('json_view', JsonView.as_view(), name='json_view'),
+    path('csv_view', CSVView.as_view(), name='csv_view')
 ]
