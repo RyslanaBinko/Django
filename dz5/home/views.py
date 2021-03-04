@@ -1,11 +1,13 @@
 import csv
 
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
+from django.shortcuts import redirect, render
+from django.urls import reverse, reverse_lazy
 from django.views import View
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from home.forms import StudentForm
 from home.models import Student
+from home.send_email import email
 
 
 class HomeView(View):
@@ -28,41 +30,6 @@ class HomeView(View):
 
     def post(self, request):
         student_form = StudentForm(request.POST)
-        if student_form.is_valid():
-            student_form.save()
-        return redirect(reverse("students_class"))
-
-
-class UpdateView(View):
-
-    """
-    class for updating a student according to his id;
-    get request to display student change form;
-    post request to go to the list of students;
-
-    returns a list of students with saved changes;
-    """
-
-    def get_student(self, id):  # noqa
-
-        return get_object_or_404(Student, id=id)
-
-    def get(self, request, id):  # noqa
-
-        student = self.get_student(id)
-        student_form = StudentForm(instance=student)
-
-        context = {
-            "form": student_form,
-            "id": student.id,
-                   }
-        return render(
-            request, "update_student.html", context=context,
-        )
-
-    def post(self, request, id):  # noqa
-        student = self.get_student(id)  # noqa
-        student_form = StudentForm(request.POST, instance=student)
         if student_form.is_valid():
             student_form.save()
         return redirect(reverse("students_class"))
@@ -103,3 +70,38 @@ class CSVView(View):
             ])
 
         return response
+
+
+class SendEmailView(View):
+    def get(self, request):
+        email(recipient_list=['binko.ryslana@gmail.com', ])
+        return HttpResponse('Email send')
+
+
+class StudentView(ListView):
+
+    model = Student
+    template_name = 'index.html'
+
+
+class StudentCreateView(CreateView):
+
+    model = Student
+    fields = ['name', 'birthday', 'email']
+    template_name = 'student_create.html'
+    success_url = reverse_lazy('student_view')
+
+
+class StudentUpdateView(UpdateView):
+
+    model = Student
+    fields = ['name', 'birthday', 'email']
+    template_name = 'update_student.html'
+    success_url = reverse_lazy('student_view')
+
+
+class StudentDeleteView(DeleteView):
+
+    model = Student
+    success_url = reverse_lazy('student_view')
+    template_name = 'student_delete.html'
