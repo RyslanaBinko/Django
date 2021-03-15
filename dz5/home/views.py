@@ -19,12 +19,13 @@ class HomeView(View):
     """
 
     def get(self, request):
+        sleep(10)
 
         students = Student.objects.all()
         student_form = StudentForm()
 
         context = {
-            "students": students,
+            "object_list": students,
             "form": student_form,
                    }
         return render(request, "index.html", context=context)
@@ -80,7 +81,6 @@ class SendEmailView(View):
 
 
 class StudentView(ListView):
-    sleep(10)
 
     model = Student
     template_name = 'index.html'

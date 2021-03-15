@@ -23,7 +23,8 @@ from home.views import (CSVView, HomeView, JsonView, SendEmailView,
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('students/class', HomeView.as_view(), name="students_class"),
+    path('students/class', cache_page(settings.CACHE_TTL)(HomeView.as_view()),
+         name="students_class"),
     path('student/update/<pk>', StudentUpdateView.as_view(),
          name="update_student"),
     path('json_view', JsonView.as_view(), name='json_view'),
