@@ -1,4 +1,5 @@
 import csv
+from time import sleep
 
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
@@ -79,6 +80,7 @@ class SendEmailView(View):
 
 
 class StudentView(ListView):
+    sleep(10)
 
     model = Student
     template_name = 'index.html'

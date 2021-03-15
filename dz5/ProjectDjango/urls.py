@@ -13,8 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path
+from django.views.decorators.cache import cache_page
 from home.views import (CSVView, HomeView, JsonView, SendEmailView,
                         StudentCreateView, StudentDeleteView,
                         StudentUpdateView, StudentView)
@@ -27,7 +29,8 @@ urlpatterns = [
     path('json_view', JsonView.as_view(), name='json_view'),
     path('csv_view', CSVView.as_view(), name='csv_view'),
     path('send_email', SendEmailView.as_view(), name='send_email'),
-    path('student_view', StudentView.as_view(), name='student_view'),
+    path('student_view', cache_page(settings.CACHE_TTL)(StudentView.as_view()),
+         name='student_view'),
     path('student_create', StudentCreateView.as_view(),
          name='student_create'),
     path('student_delete/<pk>', StudentDeleteView.as_view(),
